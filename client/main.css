@@ -1,0 +1,16 @@
+/* CSS declarations go here */
+body {
+    font-family: sans-serif;
+    background-color: darkgray;
+}
+
+h1, p {
+    color: white;
+    text-align: center;
+    background-color: royalblue;
+}
+
+p {
+    border: 1px solid black;
+    height: 21px;
+}
