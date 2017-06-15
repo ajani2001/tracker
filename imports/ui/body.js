@@ -6,8 +6,7 @@ import { location } from '../api/gps.js';
 
 Template.body.onCreated(function bodyOnCreate(){
     function success(position){
-        alert(position.coords.latitude);
-        Meteor.call('location.saveCurrent', position);
+        Meteor.call('location.saveCurrent', position.coords.latitude, position.coords.longitude);
     }
     function error(info){
         Meteor.call('location.saveError', info);
@@ -17,13 +16,7 @@ Template.body.onCreated(function bodyOnCreate(){
 
 Template.body.helpers({
     currentPosition(){
-        console.log(location.find({}));
-        return 0;
-    },
-});
-
-Template.body.events({
-    'click .reload'(event){
-        alert(1);
+        var oneRecord = location.findOne();
+        return 'latitude: ' + oneRecord.latitude + ' longitude: ' + oneRecord.longitude;
     },
 });
