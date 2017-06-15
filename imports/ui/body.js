@@ -1,21 +1,28 @@
+import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import './body.html';
 
-var positionData = 'null';
+import { location } from '../api/gps.js';
+
+Template.body.onCreated(function bodyOnCreate(){
+    function success(position){
+        Meteor.call('location.saveCurrent', position);
+    }
+    function error(info){
+        Meteor.call('location.saveError', info);
+    }
+    navigator.geolocation.getCurrentPosition(success, error);
+});
 
 Template.body.helpers({
     currentPosition(){
-        var success = function(position){
-            console.log(position);
-            var r = 'latitude: ' + position.coords.latitude + ', longitude: ' + position.coords.longitude;
-            alert(r);
-            window.positionData = r;
-        }
-        function error(info){
-            alert('error');
-            positionData = info;
-        }
-        navigator.geolocation.getCurrentPosition(success, error);
-        return positionData;
+        console.log(location.find({}));
+        return 0;
+    },
+});
+
+Template.body.events({
+    'click .reload'(event){
+        alert(1);
     },
 });
