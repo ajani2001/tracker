@@ -6,6 +6,7 @@ import { location } from '../api/gps.js';
 
 Template.body.onCreated(function bodyOnCreate(){
     function success(position){
+        alert(position.coords.latitude);
         Meteor.call('location.saveCurrent', position);
     }
     function error(info){
