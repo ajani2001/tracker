@@ -4,10 +4,9 @@ import { Mongo } from 'meteor/mongo';
 export const location = new Mongo.Collection('location');
 
 Meteor.methods({
-    'location.saveCurrent'(latitude, longitude){
+    'location.saveCurrent'(currentLocation){
         location.insert({
-            'latitude': latitude,
-            'longitude': longitude,
+            'location': currentLocation,
             'time': new Date(),
         });
     },

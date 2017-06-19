@@ -4,19 +4,38 @@ import './body.html';
 
 import { location } from '../api/gps.js';
 
-Template.body.onCreated(function bodyOnCreate(){
-    function success(position){
-        Meteor.call('location.saveCurrent', position.coords.latitude, position.coords.longitude);
-    }
-    function error(info){
-        Meteor.call('location.saveError', info);
-    }
-    navigator.geolocation.getCurrentPosition(success, error);
-});
-
 Template.body.helpers({
     currentPosition(){
         var oneRecord = location.findOne();
-        return 'latitude: ' + oneRecord.latitude + ' longitude: ' + oneRecord.longitude;
+        if (oneRecord === undefined) {
+            return;
+        }
+        if ('errorInfo' in oneRecord) {
+            alert(oneRecord.errorInfo.message);
+        }
+        return 'latitude: ' + oneRecord.location.coords.latitude + ' longitude: ' + oneRecord.location.coords.longitude;
+    },
+});
+
+Template.body.events({
+    'click .reload'(event) {
+        function clone(obj) {
+            if (typeof (obj) != 'object' || obj == null) {
+                return obj;
+            }
+            var toReturn = {};
+
+            for (var property in obj) {
+                toReturn[property] = clone(obj[property]);
+            }
+            return toReturn;
+        }
+        function success(position) {
+            Meteor.call('location.saveCurrent', clone(position));
+        }
+        function error(info) {
+            Meteor.call('location.saveError', clone(info));
+        }
+        navigator.geolocation.getCurrentPosition(success, error);
     },
 });
