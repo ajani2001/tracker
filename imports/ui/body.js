@@ -7,7 +7,6 @@ import './body.html';
 Template.body.onCreated(function(){
     Meteor.subscribe('location');
     Tracker.init();
-    Tracker.loop();
 });
 
 Template.body.helpers({
@@ -16,10 +15,7 @@ Template.body.helpers({
         if (lastRecord === undefined || !lastRecord.time) {
             return;
         }
-        if ('errorInfo' in lastRecord) {
-            console.log(lastRecord.errorInfo.message);
-        }
-        return 'latitude: ' + lastRecord.location.coords.latitude + ' longitude: ' + lastRecord.location.coords.longitude + ' time: ' + lastRecord.time;
+        return 'latitude: ' + lastRecord.location.coords.latitude + ' longitude: ' + lastRecord.location.coords.longitude;
     },
     currentStatus: function(){
         return Meteor.status().status;

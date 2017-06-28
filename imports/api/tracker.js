@@ -27,8 +27,6 @@ export var Tracker = {
     updateMap: function(){
         var record = location.find({ location: { $ne: null }, time: { $gt: Tracker.lastRecord.time } }, { sort: { time: 1 } } ).fetch();
         if(record.length == 0){
-            console.log(Tracker.lastRecord.time);
-            console.log('no new data');
             return;
         }
 
@@ -42,7 +40,6 @@ export var Tracker = {
             isChanged = true;
         }
         if(!isChanged){
-            console.log('nothing was update');
             return;
         }
             
@@ -56,10 +53,8 @@ export var Tracker = {
     loop: function(){
         var self = Tracker;
         setTimeout(function(){
-            if(self.begin){
-                self.updatePosition();
-                self.updateMap();
-            }
+            self.updatePosition();
+            self.updateMap();
             self.loop();
         }, self.interval)
     },
@@ -75,7 +70,7 @@ export var Tracker = {
                 strokeWeight: 2,
                 map: self.map
             });
-            self.begin = true;
+            self.loop();
         });
     },
     lastRecord: {time: new Date(0)}, // another crutch
@@ -83,5 +78,4 @@ export var Tracker = {
     map: null,
     line: null,
     interval: 1000,
-    begin: false
 };
