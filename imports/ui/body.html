@@ -1,16 +1,11 @@
 <body>
     <h1>GPS Tracker</h1>
-    <p>position: {{currentPosition}}</p>
-    <form class="reload">
-        {{#if isCordova}}
-            <input type="button" id="button-get_id" value="get id">
-        {{else}}
-            <input type="text" id="input-id" value="id">
-            <input type="button" id="button-find" value="find">
-        {{/if}}
-    </form>
     <p>status: {{currentStatus}}</p>
+    {{> loginButtons }}
+    {{ #if currentUser }}
+    <p>position: {{currentPosition}}</p>
     <div id="map">
         {{> googleMap name="display" options=mapOnLoad}}
     </div>
+    {{ /if }}
 </body>
