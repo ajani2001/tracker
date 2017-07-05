@@ -10,7 +10,7 @@ Template.map.onCreated(function(){
 Template.map.helpers({
     currentPosition: function(){
         lastRecord = Session.get('lastRecord');
-        if (lastRecord === undefined || !lastRecord.time) {
+        if (lastRecord === undefined || !lastRecord.location) {
             return;
         }
         return 'latitude: ' + lastRecord.location.coords.latitude + ' longitude: ' + lastRecord.location.coords.longitude;
@@ -25,3 +25,6 @@ Template.map.helpers({
     }
 });
 
+Template.map.onDestroyed(function(){
+    Tracker.clear();
+});

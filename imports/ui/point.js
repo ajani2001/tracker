@@ -14,16 +14,18 @@ Template.point.helpers({
 
 Template.point.events({
     'click .getAddress'(){
-        this.address = 'localhost';
-        console.log(Tracker.geocoder);
+        if(Tracker.geocoder == null){ //very crutchy
+            if(GoogleMaps.loaded())
+                Tracker.geocoder = new google.maps.Geocoder();
+            else
+                return;
+        }
         var recordId = this._id
-        while(!GoogleMaps.loaded()){}
         Tracker.geocoder.geocode({
             location: new google.maps.LatLng(this.location.coords.latitude,this.location.coords.longitude)
         },
         function(result, status){
             Meteor.call('location.setAddress', recordId, result[0].formatted_address);
-            console.log(status);
         });
     }
 });

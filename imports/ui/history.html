@@ -1,4 +1,6 @@
 <template name="history">
+    {{#if currentUser}}
+    <a href="http://localhost:3000/">to map</a>
     <div id="historyPanel">
         {{ #each History }}
             {{> point }}
@@ -7,4 +9,5 @@
     {{ #if recordsLeft }}
         <button id="loadMore">load more</button>
     {{ /if }}
+    {{/if}}
 </template>

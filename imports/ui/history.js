@@ -23,3 +23,7 @@ Template.history.events({
         Session.set('historyLimit', Session.get('historyLimit')+10);
     }
 });
+
+Template.history.onDestroyed(function(){
+    Session.set('historyLimit', 0);
+});

@@ -52,15 +52,17 @@ export var Tracker = {
     },
     loop: function(){
         var self = Tracker;
-        setTimeout(function(){
+        self.currentTimeoutId = setTimeout(function(){
             if(Meteor.isCordova)
                 self.updatePosition();
             self.updateMap();
-            self.loop();
+            if(self.running)
+                self.loop();
         }, self.interval)
     },
     init: function(){
         var self = Tracker;
+        self.running = true;
         GoogleMaps.ready('display', function(){
             self.map = GoogleMaps.maps.display.instance;
             self.line = new google.maps.Polyline({
@@ -75,10 +77,27 @@ export var Tracker = {
             self.loop();
         });
     },
+    stop: function(){
+        Tracker.running = false;
+        clearTimeout(Tracker.currentTimeoutId);
+    },
+    clear: function(){
+        Tracker.stop();
+        Tracker.setLastRecord({time: new Date(0)});
+        Tracker.points = new Array();
+        Tracker.map = null;
+        Tracker.line = null;
+        Tracker.interval = 2000;
+        //Tracker.geocoder = null;
+        Tracker.running = false;
+        Tracker.currentTimeoutId = null;
+    },
     lastRecord: {time: new Date(0)}, // another crutch
     points: new Array(),
     map: null,
     line: null,
     interval: 10000,
     geocoder: null,
+    running: false,
+    currentTimeoutId: null,
 };

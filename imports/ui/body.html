@@ -2,8 +2,5 @@
     <h1>GPS Tracker</h1>
     <p>status: {{currentStatus}}</p>
     {{> loginButtons }}
-    {{ #if currentUser }}
-    <a href="http://localhost:3000/history">Recent positions</a>
-        {{> Template.dynamic template="main" }}
-    {{ /if }}
+    {{> Template.dynamic template="main" }}
 </body>

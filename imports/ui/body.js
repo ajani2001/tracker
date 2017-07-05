@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { location } from '../api/gps.js';
 import './body.html';
-import './dummy.js';
 import './history.js';
 import './map.js';
 
@@ -23,12 +22,6 @@ FlowRouter.route('/', {
     }
 })
 
-FlowRouter.route('/dummy', {
-    name:'location.showDummy',
-    action(params, queryParams){
-        BlazeLayout.render('dummy');
-    }
-});
 FlowRouter.route('/history', {
     name: 'location.showRecent',
     action(params, queryParams){

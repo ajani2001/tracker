@@ -16,7 +16,6 @@ Meteor.methods({
             'time': new Date(),
             'userId': userId
         });
-        console.log(1);
     },
     'location.saveError'(error, userId){
         location.insert({
