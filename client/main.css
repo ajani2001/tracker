@@ -15,8 +15,30 @@ p {
     height: 21px;
 }
 
+td {
+    text-align: center;
+}
+
 #map {
     margin: auto;
     height: 400px;
     width: 70%;
+}
+
+#historyPanel {
+    width: 100%;
+    height: auto;
+    background-color: azure;
+}
+
+.point {
+    border-width: 1px;
+    border-style: solid;
+}
+
+.dummy {
+    background-color: black;
+    width: 400px;
+    height: 400px;
+    margin: auto;
 }

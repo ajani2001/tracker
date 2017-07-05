@@ -1,0 +1,24 @@
+<template name="point">
+    <div class="point">
+        <table width="100%" border="0">
+            <tr>
+                <td width="15%">latitude</td>
+                <td width="15%">longitude</td>
+                <td width="30%">time</td>
+                <td width="40%">address</td>
+            </tr>
+            <tr>
+                <td>{{ location.coords.latitude }}</td>
+                <td>{{ location.coords.longitude }}</td>
+                <td>{{ time.toLocaleString }}</td>
+                <td>
+                {{ #if hasAddress }}
+                    {{ address }}
+                {{ else }}
+                    <button class="getAddress">Get address</button>
+                {{ /if }}
+                </td>
+            </tr>
+        </table>
+    </div>
+</template>

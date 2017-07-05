@@ -1,0 +1,10 @@
+<template name="history">
+    <div id="historyPanel">
+        {{ #each History }}
+            {{> point }}
+        {{ /each }}
+    </div>
+    {{ #if recordsLeft }}
+        <button id="loadMore">load more</button>
+    {{ /if }}
+</template>

@@ -3,9 +3,7 @@
     <p>status: {{currentStatus}}</p>
     {{> loginButtons }}
     {{ #if currentUser }}
-    <p>position: {{currentPosition}}</p>
-    <div id="map">
-        {{> googleMap name="display" options=mapOnLoad}}
-    </div>
+    <a href="http://localhost:3000/history">Recent positions</a>
+        {{> Template.dynamic template="main" }}
     {{ /if }}
 </body>

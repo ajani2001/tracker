@@ -21,3 +21,5 @@ dburles:google-maps
 session
 accounts-password
 accounts-ui
+kadira:flow-router
+kadira:blaze-layout

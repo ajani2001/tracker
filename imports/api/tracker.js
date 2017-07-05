@@ -22,7 +22,7 @@ export var Tracker = {
         Meteor.call('location.saveError', Tracker.clone(info), Meteor.userId());
     },
     updatePosition: function(){
-        navigator.geolocation.getCurrentPosition(Tracker.success, Tracker.error);
+        navigator.geolocation.getCurrentPosition(Tracker.success, Tracker.error, { enableHighAccuracy: true });
     },
     updateMap: function(){
         var record = location.find({ location: { $ne: null }, time: { $gt: Tracker.lastRecord.time } }, { sort: { time: 1 } } ).fetch();
@@ -53,7 +53,8 @@ export var Tracker = {
     loop: function(){
         var self = Tracker;
         setTimeout(function(){
-            self.updatePosition();
+            if(Meteor.isCordova)
+                self.updatePosition();
             self.updateMap();
             self.loop();
         }, self.interval)
@@ -70,6 +71,7 @@ export var Tracker = {
                 strokeWeight: 2,
                 map: self.map
             });
+            self.geocoder = new google.maps.Geocoder();
             self.loop();
         });
     },
@@ -77,5 +79,6 @@ export var Tracker = {
     points: new Array(),
     map: null,
     line: null,
-    interval: 1000,
+    interval: 10000,
+    geocoder: null,
 };

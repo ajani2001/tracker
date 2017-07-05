@@ -1,31 +1,37 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
-import { Session } from 'meteor/session';
-import { Tracker } from '../api/tracker.js';
+import { location } from '../api/gps.js';
 import './body.html';
+import './dummy.js';
+import './history.js';
+import './map.js';
 
 Template.body.onCreated(function(){
     Meteor.subscribe('location');
-    Tracker.init();
 });
 
 Template.body.helpers({
-    currentPosition: function(){
-        lastRecord = Session.get('lastRecord');
-        if (lastRecord === undefined || !lastRecord.time) {
-            return;
-        }
-        return 'latitude: ' + lastRecord.location.coords.latitude + ' longitude: ' + lastRecord.location.coords.longitude;
-    },
     currentStatus: function(){
         return Meteor.status().status;
     },
-    mapOnLoad: function(){
-        if(GoogleMaps.loaded()){
-            return {
-                center: {lat: 0, lng: 0},
-                zoom: 16
-            };
-        }
-    },
+});
+
+FlowRouter.route('/', {
+    name: 'location.showMap',
+    action(params, queryParams){
+        BlazeLayout.render('map');
+    }
+})
+
+FlowRouter.route('/dummy', {
+    name:'location.showDummy',
+    action(params, queryParams){
+        BlazeLayout.render('dummy');
+    }
+});
+FlowRouter.route('/history', {
+    name: 'location.showRecent',
+    action(params, queryParams){
+        BlazeLayout.render('history');
+    }
 });
