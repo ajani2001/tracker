@@ -13,7 +13,7 @@
                 <td>{{ time.toLocaleString }}</td>
                 <td>
                 {{ #if hasAddress }}
-                    {{ address }}
+                    <a href="http://localhost:3000/point?id={{_id}}">{{ address }}</a>
                 {{ else }}
                     <button class="getAddress">Get address</button>
                 {{ /if }}
