@@ -25,8 +25,3 @@ Template.edit.helpers({
         }, {tracker: Tracker, requiredByDefault: false});
     }
 });
-
-Template.registerHelper('edit', function(){
-    if(FlowRouter.getRouteName() === 'location.editPoint')
-        return true;
-});

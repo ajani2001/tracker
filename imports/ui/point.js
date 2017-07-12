@@ -1,16 +1,25 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { Track } from '../api/track.js';
+import { Session } from 'meteor/session';
 import './point.html';
+
+Template.point.onRendered(function(){
+    console.log(this);
+});
 
 Template.point.helpers({
     address: function(){
         return this.address;
+    },
+    edit: function(){
+        return Session.get('currentPoint') === this._id;
     }
 });
 
 Template.point.events({
-    'click .getAddress'(){
+    'click .getAddress'(eventObj){
+        eventObj.stopImmediatePropagation();
         if(Track.geocoder == null){ //very crutchy
             if(GoogleMaps.loaded())
                 Track.geocoder = new google.maps.Geocoder();
@@ -28,4 +37,11 @@ Template.point.events({
     'click .edit'(){
         FlowRouter.go('location.editPoint', {}, {id: this._id});
     },
+    'click .save'(eventObj){
+        eventObj.stopImmediatePropagation();
+        Session.set('currentPoint', 1);
+    },
+    'click'(){
+        Session.set('currentPoint', this._id);
+    }
 });
