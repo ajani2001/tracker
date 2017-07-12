@@ -25,5 +25,3 @@ kadira:flow-router
 kadira:blaze-layout
 aldeed:autoform
 aldeed:collection2-core
-materialize:materialize@0.98.2
-poetic:materialize-scss@1.97.6_1
