@@ -2,21 +2,35 @@
     <div class="point">
         <table width="100%" border="0">
             <tr>
-                <td width="15%">latitude</td>
-                <td width="15%">longitude</td>
-                <td width="30%">time</td>
-                <td width="40%">address</td>
+                <td width="10%">latitude</td>
+                <td width="10%">longitude</td>
+                <td width="10%">time</td>
+                <td width="35%">address</td>
+                <td width="30%">your description</td>
+                {{#if edit}}
+                {{else}}
+                <td width="5%" rowspan="2">
+                    <button class="edit">EDIT</button>
+                </td>
+                {{/if}}
             </tr>
             <tr>
                 <td>{{ location.coords.latitude }}</td>
                 <td>{{ location.coords.longitude }}</td>
                 <td>{{ time.toLocaleString }}</td>
                 <td>
-                {{ #if hasAddress }}
-                    <a href="http://localhost:3000/point?id={{_id}}">{{ address }}</a>
+                {{ #if address }}
+                    {{ address }}
                 {{ else }}
                     <button class="getAddress">Get address</button>
                 {{ /if }}
+                </td>
+                <td>
+                    {{ #if description }}
+                        {{ description }}
+                    {{ else }}
+                        there's no description for this point
+                    {{ /if }}
                 </td>
             </tr>
         </table>

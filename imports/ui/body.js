@@ -1,15 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
-import { location } from '../api/gps.js';
-import { Session } from 'meteor/session';
 import './body.html';
 import './history.js';
 import './map.js';
 import './edit.js';
-
-Template.body.onCreated(function(){
-    Meteor.subscribe('location');
-});
 
 Template.body.helpers({
     currentStatus: function(){
@@ -34,7 +28,6 @@ FlowRouter.route('/history', {
 FlowRouter.route('/point/', {
     name: 'location.editPoint',
     action(params, queryParams) {
-        Session.set('currentPoint', queryParams.id);
         BlazeLayout.render('edit');
     }
 });

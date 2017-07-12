@@ -1,10 +1,10 @@
 import { Template } from 'meteor/templating';
-import { Tracker } from '../api/tracker.js';
+import { Track } from '../api/track.js';
 import { Session } from 'meteor/session';
 import './map.html';
 
 Template.map.onCreated(function(){
-    Tracker.init();
+    Track.init();
 });
 
 Template.map.helpers({
@@ -26,5 +26,5 @@ Template.map.helpers({
 });
 
 Template.map.onDestroyed(function(){
-    Tracker.clear();
+    Track.clear();
 });

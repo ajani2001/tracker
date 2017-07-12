@@ -2,6 +2,8 @@
     {{#if currentUser}}
         {{#with currentPoint}}
             {{>point}}
+            {{> quickForm id="edit" collection=location type="method-update" schema=editingSchema meteormethod="location.updatePoint" doc=currentPoint}}
+
         {{/with}}
     {{/if}}
 </template>
