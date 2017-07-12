@@ -4,9 +4,6 @@ import { Track } from '../api/track.js';
 import './point.html';
 
 Template.point.helpers({
-    hasAddress: function(){
-        return !!this.address;
-    },
     address: function(){
         return this.address;
     }
