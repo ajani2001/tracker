@@ -2,8 +2,8 @@
     {{#if currentUser}}
     <a href="http://localhost:3000/">to map</a>
     <div id="historyPanel">
-        {{ #each History }}
-            {{> point }}
+        {{ #each currentPoint in History }}
+            {{> point record=currentPoint collection=location }}
         {{ /each }}
     </div>
     {{ #if recordsLeft }}

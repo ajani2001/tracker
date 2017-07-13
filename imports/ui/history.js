@@ -15,6 +15,9 @@ Template.history.helpers({
     },
     recordsLeft: function(){
         return ( location.find({ location: { $ne: null } }).count() > Session.get('historyLimit') );
+    },
+    location: function(){
+        return location;
     }
 });
 
@@ -25,5 +28,5 @@ Template.history.events({
 });
 
 Template.history.onDestroyed(function(){
-    Session.set('historyLimit', 0);
+    Session.set('historyLimit', undefined);
 });

@@ -1,5 +1,7 @@
 <template name="point">
+    {{#if record}}
     <div class="point">
+        {{#autoForm id=autoFormId type="method-update" schema=editingSchema meteormethod="location.updatePoint" collection=collection doc=record }}
         <table width="100%" border="0">
             <tr>
                 <td width="10%">latitude</td>
@@ -9,33 +11,45 @@
                 <td width="30%">your description</td>
                 {{#if edit}}
                 <td width="5%" rowspan="2">
-                    <button class="save">SAVE</button>
+                    <button type="submit" class="btn btn-primary">SAVE</button>
                 </td>
                 {{else}}
+                {{#if false}}
                 <td width="5%" rowspan="2">
-                    <button class="edit">EDIT</button>
+                    <button type="null" class="edit">SHOW</button>
                 </td>
+                {{/if}}
                 {{/if}}
             </tr>
             <tr>
-                <td>{{ location.coords.latitude }}</td>
-                <td>{{ location.coords.longitude }}</td>
-                <td>{{ time.toLocaleString }}</td>
+                <td>{{ record.location.coords.latitude }}</td>
+                <td>{{ record.location.coords.longitude }}</td>
+                <td>{{ record.time.toLocaleString }}</td>
                 <td>
-                {{ #if address }}
-                    {{ address }}
-                {{ else }}
-                    <button class="getAddress">Get address</button>
-                {{ /if }}
+                    {{#if edit}}
+                        {{> afFieldInput name="address" }}
+                    {{else}}
+                        {{ #if record.address }}
+                            {{record.address}}
+                        {{ else }}
+                            <button type="null" class="getAddress">Get address</button>
+                        {{ /if }}
+                    {{/if}}
                 </td>
                 <td>
-                    {{ #if description }}
-                        {{ description }}
-                    {{ else }}
-                        there's no description for this point
-                    {{ /if }}
+                    {{#if edit}}
+                        {{> afFieldInput name="description" rows=6 }}
+                    {{else}}
+                        {{ #if record.description }}
+                            {{record.description}}
+                        {{ else }}
+                            there's no description for this point
+                        {{ /if }}
+                    {{/if}}
                 </td>
             </tr>
         </table>
+        {{/autoForm}}
     </div>
+    {{/if}}
 </template>

@@ -1,19 +1,33 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { Track } from '../api/track.js';
+import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
+import SimpleSchema from 'simpl-schema';
 import './point.html';
-
-Template.point.onRendered(function(){
-    console.log(this);
-});
 
 Template.point.helpers({
     address: function(){
-        return this.address;
+        return this.record.address;
     },
     edit: function(){
-        return Session.get('currentPoint') === this._id;
+        return Session.get('currentPoint') === this.record._id;
+    },
+    autoFormId: function(){
+        return 'edit_' + this.record._id;
+    },
+    editingSchema: function(){
+        return new SimpleSchema({
+            address: {
+                type: String,
+                label: 'Address',
+            },
+            description: {
+                type: String,
+                label: 'Description',
+                max: 400
+            }
+        }, {tracker: Tracker, requiredByDefault: false});
     }
 });
 
@@ -26,22 +40,23 @@ Template.point.events({
             else
                 return;
         }
-        var recordId = this._id
+        var recordId = this.record._id
         Track.geocoder.geocode({
-            location: new google.maps.LatLng(this.location.coords.latitude,this.location.coords.longitude)
+            location: new google.maps.LatLng(this.record.location.coords.latitude,this.record.location.coords.longitude)
         },
         function(result, status){
             Meteor.call('location.setAddress', recordId, result[0].formatted_address);
         });
     },
     'click .edit'(){
-        FlowRouter.go('location.editPoint', {}, {id: this._id});
+        FlowRouter.go('location.editPoint', {}, {id: this.record._id});
     },
-    'click .save'(eventObj){
+    'click .btn'(eventObj){
         eventObj.stopImmediatePropagation();
-        Session.set('currentPoint', 1);
+        Session.set('currentPoint', undefined);
     },
-    'click'(){
-        Session.set('currentPoint', this._id);
+    'click .point'(eventObj, instance){
+        eventObj.stopImmediatePropagation();
+        Session.set('currentPoint', this.record._id);
     }
 });
