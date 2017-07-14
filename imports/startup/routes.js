@@ -1,3 +1,9 @@
+import '../ui/body.js';
+import '../ui/edit.js';
+import '../ui/history.js';
+import '../ui/map.js';
+import '../ui/point.js';
+
 FlowRouter.route('/', {
     name: 'location.showMap',
     action(params, queryParams) {

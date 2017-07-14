@@ -3,7 +3,6 @@ import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
 import { location } from '../api/gps.js';
 import './history.html';
-import './point.js';
 
 Template.history.onCreated(function(){
     Session.set('historyLimit', 10);
