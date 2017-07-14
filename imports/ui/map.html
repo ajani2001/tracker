@@ -1,6 +1,5 @@
 <template name="map">
     {{#if currentUser}}
-    <a href="http://localhost:3000/history">Recent positions</a>
     <p>position: {{currentPosition}}</p>
     <div id="map">
         {{> googleMap name="display" options=mapOnLoad}}

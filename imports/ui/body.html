@@ -1,6 +1,12 @@
 <body>
     <h1>GPS Tracker</h1>
-    <p>status: {{currentStatus}}</p>
+    <p>
+        status: {{currentStatus}}
+    </p>
     {{> loginButtons }}
+    {{#if currentUser}}
+        <a href="/">Map</a>
+        <a href="/history">Recent positions</a>
+    {{/if}}
     {{> Template.dynamic template="main" }}
 </body>
