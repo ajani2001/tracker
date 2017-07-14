@@ -48,9 +48,6 @@ Template.point.events({
             Meteor.call('location.setAddress', recordId, result[0].formatted_address);
         });
     },
-    'click .edit'(){
-        FlowRouter.go('location.editPoint', {}, {id: this.record._id});
-    },
     'click .btn'(eventObj){
         eventObj.stopImmediatePropagation();
         Session.set('currentPoint', undefined);
