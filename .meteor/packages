@@ -25,3 +25,5 @@ kadira:flow-router
 kadira:blaze-layout
 aldeed:autoform
 aldeed:collection2-core
+practicalmeteor:chai
+practicalmeteor:mocha
