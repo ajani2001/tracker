@@ -67,7 +67,7 @@ if(Meteor.isServer){
         return locations.find({ userId: { $in: Meteor.users.find({ isHistoryPublic: true }).fetch().map( (user) => user._id ) } });
     });
     Meteor.publish('locations.sharedLocations', function(){
-        return locations.find({ userId: { $in: Meteor.users.find({ sharedTo: { $exists: true } }).map( (user) => ( user.sharedTo.some( (userId) => ( userId == this.userId ? true : false ) ) ? user._id : undefined ) ) } });
+        return locations.find({ userId: { $in: Meteor.users.find({ sharedTo: { $exists: true } }).map( (user) => ( user.sharedTo.some( (userId) => userId == this.userId ) ? user._id : undefined ) ) } });
     });
 }
 
